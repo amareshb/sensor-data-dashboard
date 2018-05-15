@@ -8,7 +8,6 @@ class Try extends Component {
     return (
       <div>
         Try Logic goes in here
-
       </div>
     );
   }

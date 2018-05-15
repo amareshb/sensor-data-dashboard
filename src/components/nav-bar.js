@@ -9,20 +9,11 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-  Button,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-
-import { Link } from 'react-router-dom'
-
-
 
 
 class NavBar extends Component {
@@ -50,7 +41,7 @@ class NavBar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/devices">Devices</NavLink>
+                <NavLink href="/rooms">Study Rooms</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

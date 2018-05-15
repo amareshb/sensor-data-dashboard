@@ -10,15 +10,10 @@ import {
   BrowserRouter,
   Switch
 } from "react-router-dom";
-import Devices from './components/devices.js';
 import MainContent from './components/mainContent.js';
 
 class App extends Component {
-  constructor(props) {
-        super(props);
-    }
-
-
+  
   render() {
     return (
         <div>

@@ -1,15 +1,16 @@
-import React, {
-  Component
-} from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom'
-import Devices from './devices.js';
+import Rooms from './rooms.js';
 import Try from './try.js';
+import './mainContent.css';
+import SensorData from './sensorData.js';
 
 const MainContent = () => (
-  <main>
+  <main className="main">
     <Switch>
-      <Route exact path='/devices' component={Devices}/>
+      <Route exact path='/rooms' component={Rooms}/>
       <Route exact path='/try' component={Try}/>
+      <Route exact path='/sensorData' component={SensorData}/>
     </Switch>
   </main>
 )
