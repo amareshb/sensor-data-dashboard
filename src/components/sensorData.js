@@ -36,12 +36,16 @@ class SensorData extends Component {
   fetchData = () =>  {
     var newData = this.state.data.push(
       [{ x: '1-Jan-15', y: 70 },
-      { x: '1-Apr-15', y: 15 },
-      { x: '1-May-15', y: 10 }]
+        { x: '1-Apr-15', y: 15 },
+        { x: '1-May-15', y: 10 }]
     );
 
     console.log("new data", this.state.data);
-    //this.setState({data:  newData})
+    /*this.setState({data:  [[{ x: '1-Jan-15', y: 70 },
+      { x: '1-Apr-15', y: 15 },
+      { x: '1-May-15', y: 10 }]]})*/
+
+      this.setState({data : this.state.data});
     console.log("data", this.state.data);
   }
 
@@ -61,7 +65,7 @@ class SensorData extends Component {
       xTicks={5}
       yTicks={3}
       grid
-      areaColors={['orange', 'purple', 'green','red']}
+      areaColors={['orange', 'purple', 'green','red','blue']}
       noAreaGradient
       clickHandler={(d) => this.setState({
         dataDisplay: `The value of x is ${d.x} and y is ${d.y}`
