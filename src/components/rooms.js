@@ -17,7 +17,7 @@ class Rooms extends Component {
   }
 
   fetchDeviceData = () => {
-    console.log("in here fn");
+    console.log("in here fn: ",this.state.title);
     var data = [
       {
         studyRoomId:'201',
