@@ -4,6 +4,7 @@ import React, {
 import { Card, CardImg, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle,  Row, Col, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Rooms extends Component {
   constructor(props) {
@@ -14,20 +15,21 @@ class Rooms extends Component {
       data:[]
     };
     //this.fetchDeviceData();
+    this.fetchDeviceData = this.fetchDeviceData.bind(this);
   }
 
   fetchDeviceData = () => {
     console.log("in here fn: ",this.state.title);
-    var data = [
+    /*var data = [
       {
-        studyRoomId:'201',
+        id:'201',
         title:'Room #201',
         description : 'sample desc',
         temp:'70',
         humidity:'25',
         pressure:'65'
       }, {
-        studyRoomId:'202',
+        id:'202',
         title:'Room #202',
         description : 'sample desc',
         temp:'76',
@@ -37,7 +39,14 @@ class Rooms extends Component {
     ];
     this.setState(
       {data: data}
-    );
+    );*/
+    axios.get('https://getroomdeatils.azurewebsites.net/api/queryRooms?code=wOwO/UjOyHcdeoCkQJ7ReOpW48AQ4z2Jsh1EVBdS6zDk/MAR58TKrg==&name=amar')
+    .then(response => {
+      console.log("response from db",response);
+      this.setState(
+        {data: response.data.data}
+      )
+  })
   }
 
 
@@ -49,12 +58,12 @@ class Rooms extends Component {
         <Card key={i}>
          <CardBody>
            <CardTitle>{this.state.data[i].title}</CardTitle>
-           <CardSubtitle>{this.state.data[i].description}</CardSubtitle>
+           <CardSubtitle>{this.state.data[i].Location}</CardSubtitle>
          </CardBody>
          <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
          <CardBody>
-           <CardText>Some quick example text to build on the card title and make up the bulk of the cards content.</CardText>
-           <CardLink href="/sensorData">Sensor Data</CardLink>
+           <CardText>{this.state.data[i].Description}</CardText>
+           <Link to={'/sensorData/'+this.state.data[i].id }>Show Sensor Data</Link>
          </CardBody>
        </Card>
      );

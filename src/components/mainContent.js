@@ -8,9 +8,10 @@ import SensorData from './sensorData.js';
 const MainContent = () => (
   <main className="main">
     <Switch>
+      <Route exact path='/' component={Rooms}/>
       <Route exact path='/rooms' component={Rooms}/>
       <Route exact path='/try' component={Try}/>
-      <Route exact path='/sensorData' component={SensorData}/>
+      <Route path='/sensorData' component={SensorData}/>
     </Switch>
   </main>
 )

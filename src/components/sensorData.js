@@ -3,11 +3,17 @@ import React, {
 } from 'react';
 import {AreaChart} from 'react-easy-chart';
 import {Button} from 'reactstrap';
+import axios from 'axios';
 
 class SensorData extends Component {
 
+  sensorDataURL = "https://getroomdeatils.azurewebsites.net/api/getSensorData?code=wOwO/UjOyHcdeoCkQJ7ReOpW48AQ4z2Jsh1EVBdS6zDk/MAR58TKrg==";
+  currentDate = new Date().toISOString();
   constructor(props) {
     super(props);
+    //console.log("props in sensordata comp: ",props);
+    console.log(this.currentDate);
+    this.fetchData = this.fetchData.bind(this);
     this.state = {
       data:[
         [
@@ -47,6 +53,18 @@ class SensorData extends Component {
 
       this.setState({data : this.state.data});
     console.log("data", this.state.data);
+    this.sensorDataURL += '&toDate='+this.currentDate;
+    axios.get(this.sensorDataURL)
+    .then(response => {
+      console.log("response from db",response);
+      // this.setState(
+      //   {data: response.data.sensorData}
+      // )
+  })
+  }
+
+  mapData = () =>  {
+    
   }
 
 
