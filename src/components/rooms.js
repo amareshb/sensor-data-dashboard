@@ -69,18 +69,16 @@ class Rooms extends Component {
      );
     }
     return (
-      <div>
+      <div className="cardsPage">
       <Button onClick={this.fetchDeviceData}> Fetch Data  </Button>
-       <br />
 
-
+        <div className="cardContainer">
         {roomCards}
+</div>
 
 
 
-           <br />
-
-        <Link to="try">TRY component
+        <Link to="try" className="tryLink" >TRY component
         </Link>
       </div>
     );
