@@ -8,7 +8,7 @@ import {
   Button
 } from 'reactstrap';
 import axios from 'axios';
-var SmoothieComponent = require('react-smoothie');
+var SmoothieComponent = require('./SmoothieComponent.js');
 
 class SensorData extends Component {
 
@@ -17,9 +17,6 @@ class SensorData extends Component {
   currentDate = new Date().toISOString();
   tempData = [];
   xAxisVal = 0;
-  ts1:any;
-  ts2:any;
-  ts3:any;
   constructor(props) {
     super(props);
     //console.log("props in sensordata comp: ",props);
@@ -36,28 +33,28 @@ class SensorData extends Component {
 
 
   componentDidMount() {
-       this.ts1 = this.refs.chart.addTimeSeries({}, {
+      var ts1 = this.refs.chart.addTimeSeries({}, {
         strokeStyle: 'rgba(0, 255, 0, 1)',
         fillStyle: 'rgba(0, 255, 0, 0.2)',
         lineWidth: 4
       });
-      this.ts2 = this.refs.chart.addTimeSeries({}, {
+      var ts2 = this.refs.chart.addTimeSeries({}, {
         strokeStyle: 'rgba(255, 0, 0, 1)',
         fillStyle: 'rgba(255, 0, 0, 0.2)',
         lineWidth: 4
       });
-      this.ts3 = this.refs.chart.addTimeSeries({}, {
+      var ts3 = this.refs.chart.addTimeSeries({}, {
         strokeStyle: 'rgba(100, 0, 200, 1)',
         fillStyle: 'rgba(0, 0, 255, 0.2)',
         lineWidth: 4
       });
-      /*var that = this;
+
       this.dataGenerator = setInterval(function() {
         var time = new Date().getTime();
-        that.ts1.append(time, Math.random());
-        that.ts2.append(time, Math.random());
-        that.ts3.append(time, Math.random());
-      }, 500);*/
+        ts1.append(time, Math.random());
+        ts2.append(time, Math.random());
+        ts3.append(time, Math.random());
+      }, 500);
     }
 
     componentWillUnmount() {
@@ -91,9 +88,6 @@ class SensorData extends Component {
         this.setState({
           data: this.state.data
         });
-
-        
-
         // this.setState(
         //   {data: response.data.sensorData}
         // )
@@ -144,7 +138,7 @@ class SensorData extends Component {
       <div>
         SensorData charts go in here
         <br />
-        <SmoothieComponent ref="chart" width="1000" height="300" />
+        <SmoothieComponent ref="chart"/>;
 
         <br/>
         <Button onClick={this.fetchData}> Fetch Data  </Button>

@@ -12,7 +12,9 @@
     "react-easy-chart": "^1.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "reactstrap": "^6.0.1"
+    "react-smoothie": "^0.2.1",
+    "reactstrap": "^6.0.1",
+    "smoothie": "^1.35.0"
   },
   "scripts": {
     "start": "react-scripts start",
