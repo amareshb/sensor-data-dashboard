@@ -11,6 +11,8 @@ class SensorData extends Component {
   latestSensorDataURL = "https://getroomdeatils.azurewebsites.net/api/getLatestSensorData?code=wOwO/UjOyHcdeoCkQJ7ReOpW48AQ4z2Jsh1EVBdS6zDk/MAR58TKrg=="
   currentDate = new Date().toISOString();
   tempData = [];
+  pressureData = [];
+  humidityData = [];
   xAxisVal = 0;
   constructor(props) {
     super(props);
@@ -81,10 +83,12 @@ fetchData = () =>  {
   mapData = (data) => {
     for(var i = 0; i < data.length; i++) {
       this.tempData.push({x:this.xAxisVal++, y:data[i].avgtemperature});
+      this.humidityData.push({x:this.xAxisVal++, y:data[i].avgpressure});
+      this.pressureData.push({x:this.xAxisVal++, y:data[i].avghumidity});
     }
     console.log("tempData: ", this.tempData);
     this.setState(
-       {data: [this.tempData]})
+       {data: [this.tempData, this.pressureData]})
   }
 
 
