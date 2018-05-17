@@ -23,7 +23,6 @@ class SensorData extends Component {
   avgtemperature = 0;
   avgpressure = 0;
   avghumidity = 0;
-  resTime = 0;
 
   constructor(props) {
     super(props);
@@ -60,12 +59,11 @@ class SensorData extends Component {
       this.dataGenerator = setInterval(function() {
 
         that.fetchData();
-        //var time = new Date(that.time).getTime();
         var time = new Date().getTime();
         that.ts1.append(time, that.avgtemperature);
         //that.ts2.append(time, that.avgpressure);
         that.ts3.append(time, that.avghumidity);
-      }, 500);
+      }, 1000);
     }
 
     componentWillUnmount() {
@@ -99,8 +97,6 @@ class SensorData extends Component {
         this.setState({
           data: this.state.data
         });
-
-        this.time = response.data.sensorData[0].time;
         this.avgtemperature = response.data.sensorData[0].avgtemperature;
         this.avgpressure = response.data.sensorData[0].avgpressure;
         this.avghumidity = response.data.sensorData[0].avghumidity;
@@ -165,7 +161,7 @@ class SensorData extends Component {
       <div>
         SensorData charts go in here
         <br />
-        <SmoothieComponent ref="chart" width="1000" height="300" tooltip/>
+        <SmoothieComponent ref="chart" width="1000" height="300" />
 
         <br/>
         <Button onClick={this.fetchData}> Fetch Data  </Button>
