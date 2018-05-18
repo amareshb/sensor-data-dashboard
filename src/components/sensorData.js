@@ -173,7 +173,7 @@ class SensorData extends Component {
         .then(response => {
           console.log("light val", response);
           this.lightData.time = response.data.sensorData[0].time;
-          this.lightData.val = response.data.sensorData[0].avglight.toFixed(2);
+          this.lightData.val = response.data.sensorData[0].avglight;
         });
 
         axios.get(this.soundDataURL)
@@ -181,6 +181,9 @@ class SensorData extends Component {
             console.log("sound val", response);
             this.soundData.time = response.data.sensorData[0].time;
             this.soundData.val = response.data.sensorData[0].avgsound.toFixed(2);
+            if(this.soundData.val > 123){
+              this.sendDatatoDevice();
+            }
           });
   }
 
@@ -257,7 +260,7 @@ sendDatatoDevice = () => {
         </div>
 
         <br/>
-        <Button onClick={this.fetchData}> Fetch Data  </Button>
+
         <br />
         <Button onClick={this.sendDatatoDevice}> Send message to device  </Button>
       </div>
