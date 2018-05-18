@@ -64,29 +64,32 @@ class SensorData extends Component {
 
 
   componentDidMount() {
-       this.dhtChart = this.refs.chart.addTimeSeries({}, {
-        strokeStyle: 'rgba(0, 255, 0, 1)',
-        fillStyle: 'rgba(0, 255, 0, 0.2)',
+
+    this.soundChart = this.refs.soundchart.addTimeSeries({}, {
+      strokeStyle: 'rgba(255, 0, 0, 1)',
+      fillStyle: 'rgba(255, 0, 0, 0.2)',
+      lineWidth: 4
+    });
+    this.lightChart = this.refs.lightchart.addTimeSeries({}, {
+      strokeStyle: 'rgba(100, 0, 200, 1)',
+      fillStyle: 'rgba(100, 0, 200, 0.2)',
+      lineWidth: 4
+    });
+
+       this.tempChart = this.refs.tempchart.addTimeSeries({}, {
+        strokeStyle: 'rgba(181, 244, 65, 1)',
+        fillStyle: 'rgba(181, 244, 65, 0.2)',
         lineWidth: 4
       });
-      this.soundChart = this.refs.chart.addTimeSeries({}, {
-        strokeStyle: 'rgba(255, 0, 0, 1)',
-        fillStyle: 'rgba(255, 0, 0, 0.2)',
+
+      this.humidtyChart = this.refs.humiditychart.addTimeSeries({}, {
+        strokeStyle: 'rgba(66, 86, 244, 1)',
+        fillStyle: 'rgba(66, 86, 244, 0.2)',
         lineWidth: 4
       });
-      this.lightChart = this.refs.chart.addTimeSeries({}, {
-        strokeStyle: 'rgba(100, 0, 200, 1)',
-        fillStyle: 'rgba(0, 0, 255, 0.2)',
-        lineWidth: 4
-      });
-      this.humidtyChart = this.refs.chart.addTimeSeries({}, {
-        strokeStyle: 'rgba(10, 40, 80, 1)',
-        fillStyle: 'rgba(10, 40, 80, 0.2)',
-        lineWidth: 4
-      });
-      this.heatChart = this.refs.chart.addTimeSeries({}, {
-        strokeStyle: 'rgba(0, 65, 25, 1)',
-        fillStyle: 'rgba(0, 65, 25, 0.2)',
+      this.heatChart = this.refs.heatchart.addTimeSeries({}, {
+        strokeStyle: 'rgba(238, 65, 244, 1)',
+        fillStyle: 'rgba(238, 65, 244, 0.2)',
         lineWidth: 4
       });
       var that = this;
@@ -98,12 +101,12 @@ class SensorData extends Component {
         if(that.xAxisVal > 10) {
           that.dhtChart = [];
         }
-        //that.dhtChart.append(time, that.tempData.val);
+        that.tempChart.append(time, that.tempData.val);
         that.soundChart.append(time, that.soundData.val);
         that.lightChart.append(time, that.lightData.val);
-        //that.humidtyChart.append(time, that.humidityData.val);
-        //that.heatChart.append(time, that.heatData.val);
-      }, 3000);
+        that.humidtyChart.append(time, that.humidityData.val);
+        that.heatChart.append(time, that.heatData.val);
+      }, 500);
     }
 
     componentWillUnmount() {
@@ -141,13 +144,13 @@ class SensorData extends Component {
         //this.time = response.data.sensorData[0].time;
 
         this.tempData.time = response.data.sensorData[0].time;
-        this.tempData.val = response.data.sensorData[0].avgtemperature;
+        this.tempData.val = response.data.sensorData[0].avgtemperature.toFixed(2);
 
         this.heatData.time = response.data.sensorData[0].time;
-        this.heatData.val = response.data.sensorData[0].avgheatindex;
+        this.heatData.val = response.data.sensorData[0].avgheatindex.toFixed(2);
 
         this.humidityData.time = response.data.sensorData[0].time;
-        this.humidityData.val = response.data.sensorData[0].avghumidity;
+        this.humidityData.val = response.data.sensorData[0].avghumidity.toFixed(2);
 
 
 
@@ -170,14 +173,14 @@ class SensorData extends Component {
         .then(response => {
           console.log("light val", response);
           this.lightData.time = response.data.sensorData[0].time;
-          this.lightData.val = response.data.sensorData[0].avglight;
+          this.lightData.val = response.data.sensorData[0].avglight.toFixed(2);
         });
 
         axios.get(this.soundDataURL)
           .then(response => {
             console.log("sound val", response);
             this.soundData.time = response.data.sensorData[0].time;
-            this.soundData.val = response.data.sensorData[0].avgsound;
+            this.soundData.val = response.data.sensorData[0].avgsound.toFixed(2);
           });
   }
 
@@ -229,12 +232,30 @@ sendDatatoDevice = () => {
   render() {
     return (
       <div>
-        SensorData charts go in here
         <br />
-        <div>
-        <SmoothieComponent ref="chart" width="1000" height="300" tooltip/>
-
+        <div className = "graphParent">
+        <div className="graph">
+          <p><b>LIGHT</b></p>
+          <SmoothieComponent  ref="lightchart" width="300" height="300" tooltip/>
         </div>
+        <div className="graph">
+        <p><b>SOUND</b></p>
+          <SmoothieComponent  ref="soundchart" width="300" height="300" tooltip/>
+        </div>
+        <div className="graph">
+        <p><b>TEMPERATURE</b></p>
+          <SmoothieComponent  ref="tempchart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
+        </div>
+        <div className="graph">
+        <p><b>HUMIDITY</b></p>
+          <SmoothieComponent  ref="humiditychart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
+        </div>
+        <div className="graph">
+        <p><b>HEAT INDEX</b></p>
+          <SmoothieComponent  ref="heatchart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
+        </div>
+        </div>
+
         <br/>
         <Button onClick={this.fetchData}> Fetch Data  </Button>
         <br />

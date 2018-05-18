@@ -16,6 +16,15 @@ display: block !important;
 min-width: 0;
 
 }
+.graphParent{
+  float:left;
+  width: 100%;
+}
+.graph{
+  margin:3px !important;
+  float:left;
+}
+
 .cardContainer
 {
   margin-left: 25px;
@@ -25,4 +34,3 @@ min-width: 0;
   float: left;
   clear: both;
 }
-
