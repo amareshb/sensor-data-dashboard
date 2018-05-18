@@ -54,13 +54,16 @@ class Rooms extends Component {
     var roomCards = [];
     for (var i = 0; i < this.state.data.length; i++) {
       console.log("item number: ", i);
+      var imageName = this.state.data[i].title
+      var re = /[^a-zA-Z0-9_-]/gi
+      var image ='/images/' +  imageName.replace(re,'') + '.jpg';
       roomCards.push(
         <Card key={i}>
          <CardBody>
            <CardTitle>{this.state.data[i].title}</CardTitle>
            <CardSubtitle>{this.state.data[i].Location}</CardSubtitle>
          </CardBody>
-         <img width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+         <img width="100%" src={image} onError={(e)=>{e.target.src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"}}  alt="Card image cap" />
          <CardBody>
            <CardText>{this.state.data[i].Description}</CardText>
            <Link to={'/sensorData/'+this.state.data[i].id }>Show Sensor Data</Link>
@@ -69,18 +72,16 @@ class Rooms extends Component {
      );
     }
     return (
-      <div>
+      <div className="cardsPage">
       <Button onClick={this.fetchDeviceData}> Fetch Data  </Button>
-       <br />
 
-
+        <div className="cardContainer">
         {roomCards}
+</div>
 
 
 
-           <br />
-
-        <Link to="try">TRY component
+        <Link to="try" className="tryLink" >TRY component
         </Link>
       </div>
     );
