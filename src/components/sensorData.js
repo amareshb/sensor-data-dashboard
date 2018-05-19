@@ -144,7 +144,7 @@ class SensorData extends Component {
         //this.time = response.data.sensorData[0].time;
 
         this.tempData.time = response.data.sensorData[0].time;
-        this.tempData.val = response.data.sensorData[0].avgtemperature.toFixed(2);
+        this.tempData.val = ((response.data.sensorData[0].avgtemperature.toFixed(2)) * 1.8 )+ 32;
 
         this.heatData.time = response.data.sensorData[0].time;
         this.heatData.val = response.data.sensorData[0].avgheatindex.toFixed(2);
@@ -181,7 +181,7 @@ class SensorData extends Component {
             console.log("sound val", response);
             this.soundData.time = response.data.sensorData[0].time;
             this.soundData.val = response.data.sensorData[0].avgsound.toFixed(2);
-            if(this.soundData.val > 123){
+            if(this.soundData.val > 100){
               this.sendDatatoDevice();
             }
           });
@@ -246,15 +246,15 @@ sendDatatoDevice = () => {
           <SmoothieComponent  ref="soundchart" width="300" height="300" tooltip/>
         </div>
         <div className="graph">
-        <p><b>TEMPERATURE</b></p>
-          <SmoothieComponent  ref="tempchart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
+        <p><b>TEMPERATURE - Fahrenheit</b></p>
+          <SmoothieComponent  ref="tempchart" width="300" height="300" tooltip minValue="60" maxValue="80"/>
         </div>
         <div className="graph">
-        <p><b>HUMIDITY</b></p>
+        <p><b>HUMIDITY - % </b></p>
           <SmoothieComponent  ref="humiditychart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
         </div>
         <div className="graph">
-        <p><b>HEAT INDEX</b></p>
+        <p><b>HEAT INDEX - % </b></p>
           <SmoothieComponent  ref="heatchart" width="300" height="300" tooltip minValue="0" maxValue="100"/>
         </div>
         </div>
